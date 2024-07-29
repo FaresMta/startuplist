@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Angels in Tunisia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: white;
+            color: #f21717;
+            text-align: center;
+            padding: 1em 0;
+            cursor: pointer;
+        }
+        main {
+            background-color: white;
+            padding: 1em;
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #Black;
+            margin: 1em 0;
+        }
+        .angel-cards,
+        .individual-cards {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            flex-wrap: wrap;
+        }
+        .angel-card,
+        .individual-card {
+            border: 0.5px solid #ccc;
+            border-radius: 10px;
+            margin: 0.5em;
+            padding: 1em;
+            width: 200px;
+            text-align: center;
+            box-sizing: border-box;
+            cursor: pointer;
+            background-color: white;
+        }
+        .angel-card img,
+        .individual-card img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .individual-info {
+            display: none;
+            text-align: left;
+            width: 100%;
+            margin-top: 1em;
+            padding: 1em;
+            border: 0.5px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            font-size: 1.2em; /* Augmentation de la taille de la police */
+            line-height: 1.6em; /* Espacement entre les lignes pour meilleure lisibilité */
+        }
+    </style>
+    <script>
+        function showInfo(id) {
+            const infos = document.querySelectorAll('.individual-info');
+            infos.forEach(info => {
+                info.style.display = 'none';
+            });
+            document.getElementById(id).style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <header onclick="window.location.href='index.html'">
+        <h1>Retour à l'accueil</h1>
+    </header>
+    <main>
+        <div class="section-title">Réseaux de Business Angels</div>
+        <div class="angel-cards">
+            <div class="angel-card" onclick="window.location.href='carthage-business-angels.html'">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.Rbj4PBCQxB-OOpEnk9op-AHaFp&pid=Api&P=0&h=180" alt="Carthage Business Angels">
+                <h2>Carthage Business Angels</h2>
+            </div>
+            <div class="angel-card" onclick="window.location.href='DAMYA.html'">
+                <img src="data:image/png;base64,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" alt="DAMYA">
+                <h2>DAMYA</h2>
+            
+            </div>
+            <div class="angel-card" onclick="window.location.href='smart-capital.html'">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.0F92hgqpfnEMWGKoRQpqVwHaCC&pid=Api&P=0&h=180" alt="Smart Capital">
+                <h2>Smart Capital</h2>
+            </div>
+            <div class="angel-card" onclick="window.location.href='North-Business-Angels.html'">
+                <img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/346056236_621513809875636_3683490263611968781_n.jpg?stp=c0.6.200.200a_dst-jpg_p200x200&_nc_cat=107&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=o_DCAFGdXCMQ7kNvgE0VEwq&_nc_ht=scontent.ftun1-2.fna&oh=00_AYDlaDo_9tafrWYz0KRFLlwRXmVhXxHoe3Vf9GBowU6vYg&oe=66A566A1" alt="North Business Angels">
+                <h2>North Business Angels</h2>
+            </div>
+        </div>
+        
+        <div class="section-title">individuel :</div>
+        <div class="individual-cards">
+            <div class="individual-card" onclick="showInfo('info-mondher')">
+                <h2>Mondher Khanfir</h2>
+            </div>
+            <div class="individual-card" onclick="showInfo('info-karim')">
+                <h2>Karim Beguir</h2>
+            </div>
+        </div>
+
+        <!-- Sections d'information -->
+        <div id="info-mondher" class="individual-info">
+            <h3>Mondher Khanfir</h3><img src="https://tse1.mm.bing.net/th?id=OIP.wh399LeN1j9aU-PFz2GjVAHaER&pid=Api&P=0&h=180" alt="Mondher Khanfir">
+            <p>Mondher Khanfir est un acteur clé dans l'écosystème entrepreneurial tunisien, particulièrement reconnu pour ses contributions en tant que business angel et pour son rôle dans la création et le développement de Carthage Business Angels. Voici quelques détails précis sur ses réalisations et son impact :
+
+Mondher Khanfir a fondé Carthage Business Angels (CBA) en 2010, le premier réseau de business angels en Tunisie. 
+                CBA a investi dans plus de 20 entreprises, soutenant ainsi l'innovation et la croissance des startups dans divers secteurs tels que le digital, les énergies renouvelables, l'industrie, les transports et les services financiers. Le réseau a également lancé "CapitalAct Seed Fund", un fonds doté de plus de 15 millions deuros pour soutenir les startups dans ces secteurs (VC4A) (African Manager).
+
+En 2011, Khanfir a co-fondé Wiki Start Up, le premier incubateur privé entièrement dédié à l'innovation en Tunisie. 
+                Cet incubateur fournit un soutien stratégique et financier aux startups innovantes, contribuant ainsi à l'écosystème entrepreneurial tunisien.
+                Wiki Start Up fonctionne comme une société de conseil, offrant des services payants et prenant des frais de succès sur les levées de fonds. Ils ont levé rapidement 100 000 TND pour créer l'incubateur et prévoient de lever 1 million TND pour leur fonds pré-amorçage appelé CAPITALease (Wamda).
+
+Sous la direction de Khanfir, Carthage Business Angels a investi dans plus de 20 startups. Le réseau se concentre sur des secteurs variés et a réussi à lever des fonds significatifs pour soutenir l'innovation en Tunisie. Khanfir a également été impliqué dans la mise en Suvre de plusieurs programmes d'incubation et d'accélération, renforçant ainsi l'écosystème entrepreneurial. CBA co-implémente des programmes en partenariat avec des institutions internationales comme GIZ et USAID (TAYP) (Wamda).</p>
+        </div>
+        
+        <div id="info-karim" class="individual-info">
+            <h3>Karim Beguir</h3><img src="https://tse3.mm.bing.net/th?id=OIP.J6BFhMS-OPmk55aoLoibEAHaHa&pid=Api&P=0&h=180" alt="Karim Beguir">
+            <p>Karim Beguir est un entrepreneur et expert en intelligence artificielle (IA), co-fondateur et PDG d'InstaDeep, une entreprise spécialisée dans les solutions d'IA pour les entreprises. Diplômé de l'École Polytechnique en France et ancien fellow au Courant Institute de l'Université de New York, Karim est passionné par l'enseignement et l'application des mathématiques. Il est également mentor au Google for Startups Accelerator et membre du comité directeur de Deep Learning Indaba. En Tunisie, Karim Beguir a joué un rôle clé dans la promotion de l'IA et le soutien à l'écosystème des startups. InstaDeep, fondée en 2014 à Tunis, est devenue une entreprise de premier plan dans le domaine de l'IA, avec des bureaux à Tunis, Londres, Paris, Nairobi, Le Cap et Lagos. InstaDeep a levé 100 millions de dollars lors d'une série B de financement en janvier 2022, démontrant son succès et son impact dans l'industrie technologique. Récemment, Karim Beguir a soutenu le lancement de Project Tatooine, une initiative dirigée par Yahya Bouhlel, fondateur de GoMyCode. « Project Tatooine », une initiative pour permettre à l'entreprise GOMYCODE de renforcer les compétences de 10 000 jeunes talents en matière de numérique et d'IA sur trois ans dans des zones de développement prioritaires, a été lancée mardi en marge de la conférence « Tunisia Global Forum ».
+
+Développée et conçue avec le soutien de l'entreprise d'IA InstaDeep et de ses co-fondateurs Karim Beguir et Zohra Slim, cette initiative vise également à lancer 20 écoles numériques dans des emplacements clés, notamment Ettahrir, Zaghouan, Siliana, Béja, Jendouba, El Kef, Kasserine, Sidi Bouzid, Kairouan, Gafsa, Monastir, Hammam Sousse, Ourdenine, Médenine, Zarzis, Djerba, Ben Guerdene, Tataouine, Kébili et Tozeur.
+
+Elle offrira également 4 000 stages dans des entreprises technologiques et encouragera l'engagement communautaire à travers des événements et des activités au sein des écoles numériques lancées. Le soutien de Karim Beguir à ce projet témoigne de son engagement continu à promouvoir l'innovation et l'entrepreneuriat en Tunisie. Ainsi, Karim Beguir joue un rôle essentiel non seulement en tant que leader d'opinion et conférencier, mais aussi en tant que soutien actif aux initiatives qui renforcent l'écosystème entrepreneurial en Tunisie. 
+        </div>
+        
+        
+    </main>
+</body>
+</html>
+

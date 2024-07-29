@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of SSO in Tunisia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: white;
+            color: #f21717;
+            text-align: center;
+            padding: 1em 0;
+            position: relative;
+        }
+        #home-button {
+            position: absolute;
+            top: 1em;
+            left: 1em;
+            background: none;
+            border: none;
+            color: #f21717;
+            font-size: 1em;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        #search-container {
+            text-align: center;
+            margin-top: 1em;
+        }
+        #search-bar {
+            width: 50%;
+            padding: 0.5em;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #title-button {
+            background: none;
+            border: none;
+            font-size: 2em;
+            color: #f21717;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            font-family: inherit;
+        }
+        #parameters {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+        }
+        #filter-buttons {
+            display: none;
+            position: absolute;
+            top: 3em;
+            right: 1em;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 1em;
+            z-index: 100;
+        }
+        #filter-buttons button {
+            display: block;
+            margin-bottom: 0.5em;
+            width: 100%;
+        }
+        main {
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1em;
+        }
+        .sso-card {
+            border: 0.5px solid #ccc;
+            border-radius: 10px;
+            margin: 0.5em;
+            padding: 1em;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .sso-card img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .sso-card h2 {
+            font-size: 1em;
+        }
+        .sso-details {
+            display: none;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            margin-top: 0.1em;
+            background-color: white;
+            position: absolute;
+            z-index: 100;
+            width: 300px;
+        }
+        .sso-details.active {
+            display: block;
+        }
+        /* Classe spécifique pour les images dans les détails */
+        .sso-details img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .sso-details img.small {
+            max-width: 50%;
+        }
+        .sso-details img.large {
+            max-width: 80%;
+        }
+        .title-button {
+            background: none;
+            border: none;
+            color: #f21717;
+            font-size: 2em;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <script>
+        function showDetails(id, event) {
+            event.stopPropagation();
+            var details = document.getElementsByClassName('sso-details');
+            var cards = document.getElementsByClassName('sso-card');
+
+            for (var i = 0; i < details.length; i++) {
+                details[i].classList.remove('active');
+            }
+
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].style.transform = '';
+            }
+
+            var detailElement = document.getElementById(id);
+            detailElement.classList.add('active');
+
+            var rect = event.currentTarget.getBoundingClientRect();
+            var detailRect = detailElement.getBoundingClientRect();
+            var leftPos = rect.right + window.scrollX + 10;
+
+            if (leftPos + detailRect.width > window.innerWidth) {
+                leftPos = rect.left + window.scrollX - detailRect.width - 10;
+                if (leftPos < 0) {
+                    leftPos = 10;
+                    detailElement.style.width = (window.innerWidth - 20) + 'px';
+                }
+            }
+
+            detailElement.style.top = rect.top + window.scrollY + 'px';
+            detailElement.style.left = leftPos + 'px';
+
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+                var cardRect = card.getBoundingClientRect();
+
+                if (cardRect.top === rect.top && cardRect.left > rect.left) {
+                    card.style.transform = 'translateX(320px)';
+                }
+            }
+        }
+
+        function toggleFilters() {
+            var filterButtons = document.getElementById('filter-buttons');
+            filterButtons.style.display = (filterButtons.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function filterSSO(criteria) {
+            var cards = document.getElementsByClassName('sso-card');
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+                var domain = card.getAttribute('data-domain');
+                if (criteria.some(criterion => domain.toLowerCase().includes(criterion.toLowerCase()))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        }
+
+        function searchSSO() {
+            var input, filter, cards, card, h2, i, txtValue;
+            input = document.getElementById('search-bar');
+            filter = input.value.toUpperCase();
+            cards = document.getElementsByClassName('sso-card');
+
+            for (i = 0; i < cards.length; i++) {
+                card = cards[i];
+                h2 = card.getElementsByTagName("h2")[0];
+                txtValue = h2.textContent || h2.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
+        function resetCardTransformations() {
+            var cards = document.getElementsByClassName('sso-card');
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].style.transform = '';
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            var details = document.getElementsByClassName('sso-details');
+            for (var i = 0; i < details.length; i++) {
+                details[i].classList.remove('active');
+            }
+            resetCardTransformations();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.sso-card, .sso-details').forEach(function(element) {
+                element.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            });
+
+            document.getElementById('title-button').addEventListener('click', function(event) {
+                event.preventDefault();
+                location.reload();
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <button id="home-button" onclick="window.location.href='index.html'">Home</button>
+        <button id="title-button">List of SSO in Tunisia</button>
+        <input type="text" id="search-bar" onkeyup="searchSSO()" placeholder="Search for SSOs...">
+        <div id="parameters">
+            <button onclick="toggleFilters()">filtre</button>
+            <div id="filter-buttons">
+                <button onclick="filterSSO(['multi-secteurs','multi-secteur'])">multi-secteurs</button>
+                <button onclick="filterSSO(['food', 'agritech'])">Food</button>
+                <button onclick="filterSSO(['healthtech', 'health', 'santé'])">Health</button>
+                <button onclick="filterSSO(['social'])">Social</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        
+        
+            <div class="sso-card" data-domain="technologie et fintech" onclick="showDetails('sso2', event)">
+                <img src="https://media.licdn.com/dms/image/C4D0BAQE0_py-qso28g/company-logo_200_200/0/1637612692604?e=1729123200&v=beta&t=M07tthgkeX2xubUisiDRQRZ61A5Qu81T5CGnfDPtJXg" alt="216 Capital Ventures">
+                <h2>216 Capital Ventures</h2>
+            </div>
+            <div id="sso2" class="sso-details">
+            <h2>216 Capital Ventures</h2>
+            <img src="https://media.licdn.com/dms/image/C4D0BAQE0_py-qso28g/company-logo_200_200/0/1637612692604?e=1729123200&v=beta&t=M07tthgkeX2xubUisiDRQRZ61A5Qu81T5CGnfDPtJXg" alt="216 Capital Ventures" class="large">
+            <p><strong>Domaine:</strong> Technologie et Fintech</p>
+            <p><strong>Nombre Startup:</strong> 570</p>
+            <p><strong>Services:</strong> Financement, Conseils stratégiques</p>
+            <p><strong>Startup Label Tunisia:</strong> Non</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2013</p>
+            <p><strong>Principaux Partenaires:</strong> Investisseurs privés</p>
+            <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="https://216capital.vc/" target="_blank">https://216capital.vc/</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/216capital/" target="_blank">https://www.linkedin.com/company/216capital/</a></p>
+            <p><strong>Email:</strong>hello@216capital.vc</p>
+            </div>
+
+            <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso3', event)">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.oSE9OSsjcHZ1dnp-MQ2wDwHaCv&pid=Api&P=0&h=180" alt="Flat6Labs Tunis" class="small">
+                <h2>Flat6Labs Tunis</h2>
+            </div>
+            <div id="sso3" class="sso-details">
+            <h2>Flat6Labs Tunis</h2>
+            <img src="https://tse3.mm.bing.net/th?id=OIP.oSE9OSsjcHZ1dnp-MQ2wDwHaCv&pid=Api&P=0&h=180" alt="Flat6Labs Tunis" class="small">
+            <p><strong>Domaine:</strong> Multi-secteurs</p>
+            <p><strong>Nombre Startup:</strong> 500</p>
+            <p><strong>Services:</strong> Mentorat, Financement, formation, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2016</p>
+            <p><strong>Principaux Partenaires:</strong> JORDAN SEED FUND (JSF), LEBANON SEED FUND</p>
+            <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+            </div>
+        
+        
+            <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso4', event)">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.xSaeDTI0WfNxIfbmEgdjMwHaHa&pid=Api&P=0&h=180" alt="BETACUBE" class="small">
+                <h2>BETACUBE</h2>
+            </div>
+            
+            <div id="sso4" class="sso-details">
+            <h2>BETACUBE</h2><img src="https://tse2.mm.bing.net/th?id=OIP.xSaeDTI0WfNxIfbmEgdjMwHaHa&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> Multi-secteurs</p>
+            <p><strong>Nombre Startup:</strong> 200</p>
+            <p><strong>Services:</strong> Formation, Mentorat, financement, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2019</p>
+            <p><strong>Principaux Partenaires:</strong> ooredoo, Attijari Bank, GIZ</p>
+            <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="http://www.betacube.io/" target="_blank">http://www.betacube.io/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/Betacube.io" target="_blank">https://www.facebook.com/Betacube.io</a></p>
+            </div>
+        
+        
+        
+            <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso5', event)">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.Mhgl81N-pzNDDarMyfpRxAAAAA&pid=Api&P=0&h=180" alt="Centre d'Affaires de Sfax CAS" class="small">
+                <h2>Centre d'Affaires de Sfax CAS</h2>
+            </div>
+            <div id="sso5" class="sso-details">
+            <h2>Centre d'Affaires de Sfax CAS</h2><img src="https://tse1.mm.bing.net/th?id=OIP.Mhgl81N-pzNDDarMyfpRxAAAAA&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> Multi-secteurs</p>
+            <p><strong>Nombre Startup:</strong> 200</p>
+            <p><strong>Services:</strong> formation, mentorat, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Sfax</p>
+            <p><strong>Année de Création:</strong> 2005</p>
+            <p><strong>Principaux Partenaires:</strong> Attijari Bank, UIB</p>
+            <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="http://www.cas.tn/" target="_blank">http://http://www.cas.tn//</a></p>
+            <p><strong>Facebook:</strong> <a href="https://https://www.facebook.com/Centre.Affaires.Sfax/" target="_blank">https://https://www.facebook.com/Centre.Affaires.Sfax/</a></p>
+            </div>
+        
+        
+        
+            <div class="sso-card" data-domain="agritech" onclick="showDetails('sso6', event)">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.bhM71LpEaiSEVeb5zEA8fAHaD4&pid=Api&P=0&h=180" alt="STECIA International" class="small">
+                <h2>STECIA International</h2>
+            </div>
+                <div id="sso6" class="sso-details">
+            <h2>STECIA International</h2><img src="https://tse1.mm.bing.net/th?id=OIP.bhM71LpEaiSEVeb5zEA8fAHaD4&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> agritech</p>
+            <p><strong>Nombre Startup:</strong> 200</p>
+            <p><strong>Services:</strong> formation, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2011</p>
+                <p><strong>Principaux Partenaires:</strong> World Bank, USAID</p>
+            <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="https://www.stecia.com/" target="_blank">https://www.stecia.com/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/steciainter" target="_blank">https://www.facebook.com/steciainter</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/steciainter/" target="_blank">https://www.linkedin.com/company/steciainter/</a></p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/steciainter/" target="_blank">https://www.instagram.com/steciainter/</a></p>
+            </div>
+        
+        
+        
+            <div class="sso-card" data-domain="Technologie et Numérique" onclick="showDetails('sso7', event)">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.Rbj4PBCQxB-OOpEnk9op-AHaFp&pid=Api&P=0&h=180" alt="Carthage Business Angels" class="small">
+                <h2>Carthage Business Angels</h2>
+            </div>
+            <div id="sso7" class="sso-details">
+            <h2>Carthage Business Angels</h2><img src="https://tse3.mm.bing.net/th?id=OIP.Rbj4PBCQxB-OOpEnk9op-AHaFp&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> Technologie et Numérique</p>
+            <p><strong>Nombre Startup:</strong> 150</p>
+            <p><strong>Services:</strong> Financement, Mentorat, Networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2010</p>
+            <p><strong>Principaux Partenaires:</strong> Business Angels</p>
+            <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="http://www.cba.tn/" target="_blank">http://www.cba.tn/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/CBATunisia/" target="_blank">https://www.facebook.com/CBATunisia/</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/cbatunisia/" target="_blank">https://www.linkedin.com/company/cbatunisia/</a></p>
+            </div>
+        
+        
+        
+            <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso8', event)">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.3ck23mQRS2jlQS5nUWUw6AHaB7&pid=Api&P=0&h=180" alt="Réseau Entreprendre Tunisie" class="small">
+                <h2>Réseau Entreprendre Tunisie</h2>
+            </div>
+            <div id="sso8" class="sso-details">
+            <h2>Réseau Entreprendre Tunisie</h2><img src="https://tse2.mm.bing.net/th?id=OIP.3ck23mQRS2jlQS5nUWUw6AHaB7&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> Multi-secteurs</p>
+            <p><strong>Nombre Startup:</strong> 150</p>
+            <p><strong>Services:</strong> Mentorat, Financement, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2010</p>
+            <p><strong>Principaux Partenaires:</strong>  tunisie leasing</p>
+            <p><strong>Fréquences des événements:</strong> MOYEN</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="https://www.reseau-entreprendre.org/tunisie/" target="_blank">https://www.reseau-entreprendre.org/tunisie/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://fr-fr.facebook.com/Reseauentreprendretunisie/" target="_blank">https://fr-fr.facebook.com/Reseauentreprendretunisie/</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/77936129/admin/" target="_blank">https://www.linkedin.com/company/77936129/admin/</a></p>
+            </div>
+        
+        
+            <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso9', event)">
+                <img src="https://tse3.mm.bing.net/th?id=OIP._bQPckEhhAyFoJkEm5FnxgHaFj&pid=Api&P=0&h=180" alt="CEED Tunisie" class="small">
+                <h2>CEED Tunisie</h2>
+            </div>
+            <div id="sso9" class="sso-details">
+            <h2>CEED TUNISIE</h2><img src="https://tse3.mm.bing.net/th?id=OIP._bQPckEhhAyFoJkEm5FnxgHaFj&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> Multi-secteurs</p>
+            <p><strong>Nombre Startup:</strong> 150</p>
+            <p><strong>Services:</strong> Formation, Mentorat, financement, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2014</p>
+            <p><strong>Principaux Partenaires:</strong> UTICA</p>
+            <p><strong>Fréquences des événements:</strong> MOYEN</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="https://www.ceed-tunisia.tn/" target="_blank">https://www.ceed-tunisia.tn/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/ceedtunisia" target="_blank">https://www.facebook.com/ceedtunisia</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/ceed-tunisia/" target="_blank">https://www.linkedin.com/company/ceed-tunisia/</a></p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/ceedtunisia/?hl=fr" target="_blank">https://www.instagram.com/ceedtunisia/?hl=fr</a></p>
+            </div>
+        
+        
+            <div class="sso-card" data-domain="social, environnemental" onclick="showDetails('sso10', event)">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.u-fIJEzRag-g9WsEuaRTBQHaD0&pid=Api&P=0&h=180" alt="Lab'ess" class="small">
+                <h2>Lab'ess</h2>
+            </div>
+            <div id="sso10" class="sso-details">
+            <h2>Lab'ess</h2><img src="https://tse1.mm.bing.net/th?id=OIP.u-fIJEzRag-g9WsEuaRTBQHaD0&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> social, environnemental</p>
+            <p><strong>Nombre Startup:</strong> 140</p>
+            <p><strong>Services:</strong> formation, networking, financement</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2012</p>
+            <p><strong>Principaux Partenaires:</strong> innov'i, Expertise France</p>
+            <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+            <p><strong>Website:</strong> <a href="https://www.labess.tn/" target="_blank">https://www.labess.tn/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/LabessTunisie/" target="_blank">https://www.facebook.com/LabessTunisie/</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/5398325/admin/" target="_blank">https://www.linkedin.com/company/5398325/admin/</a></p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/labess.tn/?hl=fr" target="_blank">https://www.instagram.com/labess.tn/?hl=fr</a></p>
+            </div>
+        
+        
+            <div class="sso-card" data-domain="Technologie, Créativité, Innovation" onclick="showDetails('sso11', event)">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.i3PAGPWqDSnGxp9jAHnfGQHaEO&pid=Api&P=0&h=180" alt="The Dot" class="small">
+                <h2>The Dot</h2>
+            </div>
+        <div id="sso11" class="sso-details">
+            <h2>The Dot</h2><img src="https://tse4.mm.bing.net/th?id=OIP.i3PAGPWqDSnGxp9jAHnfGQHaEO&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> Technologie, Créativité, Innovation</p>
+            <p><strong>Nombre Startup:</strong> 100</p>
+            <p><strong>Services:</strong> Mentorat, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> NON</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2021</p>
+            <p><strong>Principaux Partenaires:</strong> expertise France, fondation tunisie</p>
+            <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+            <p><strong>Website:</strong> <a href="https://thedot.tn/" target="_blank">https://thedot.tn/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/TheDOT.tn/" target="_blank">https://www.facebook.com/TheDOT.tn/</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/the-dot-tn/" target="_blank">https://www.linkedin.com/company/the-dot-tn/</a></p>
+        </div>
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso12', event)">
+    <img src="https://tse4.mm.bing.net/th?id=OIP.0F92hgqpfnEMWGKoRQpqVwHaCC&pid=Api&P=0&h=180" alt="Smart Capital" class="small">
+    <h2>Smart Capital</h2>
+</div>
+        <div id="sso12" class="sso-details">
+            <h2>Smart Capital</h2><img src="https://tse4.mm.bing.net/th?id=OIP.0F92hgqpfnEMWGKoRQpqVwHaCC&pid=Api&P=0&h=180">
+            <p><strong>Domaine:</strong> Multi-secteurs</p>
+            <p><strong>Nombre Startup:</strong> 100</p>
+            <p><strong>Services:</strong> Financement, Mentorat, networking</p>
+            <p><strong>Startup Label Tunisia:</strong> Oui</p>
+            <p><strong>Location:</strong> Tunis</p>
+            <p><strong>Année de Création:</strong> 2019</p>
+            <p><strong>Principaux Partenaires:</strong> GIZ, The World Bank</p>
+            <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+            <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+            <p><strong>Website:</strong> <a href="https://smartcapital.tn/" target="_blank">https://smartcapital.tn/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/smartcapitalhq" target="_blank">https://www.facebook.com/smartcapitalhq</a></p>
+        </div>
+        
+        
+        <div class="sso-card" data-domain="technologie, environnement, health" onclick="showDetails('sso13', event)">
+    <img src="https://tse1.mm.bing.net/th?id=OIP.4bZVI3-aoVlsD-VzUF5e5AHaHa&pid=Api&P=0&h=180" alt="CoStarT" class="small">
+    <h2>CoStarT</h2>
+</div>
+        <div id="sso13" class="sso-details">
+    <h2>CoStarT (Sfax technopole)</h2><img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/277158685_5083461951720539_1477404025291317427_n.jpg?stp=dst-jpg_p200x200&_nc_cat=101&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=yqkSN2MylckQ7kNvgGwtIPu&_nc_ht=scontent.ftun1-2.fna&oh=00_AYDB3Zqz0yTpcKii5Qip1ewoG85GQOTBVMmKjWpXbe3ptA&oe=669EE2C3">
+    <p><strong>Domaine:</strong> technologie, environnement, health</p>
+    <p><strong>Nombre Startup:</strong> 100</p>
+    <p><strong>Services:</strong> formation, mentorat</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Sfax</p>
+    <p><strong>Année de Création:</strong> 2007</p>
+    <p><strong>Principaux Partenaires:</strong> Tunisie Télécom, LArab Tunisian Bank</p>
+    <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Website:</strong> <a href="http://www.costart.tn/" target="_blank">http://www.costart.tn/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/Costart01" target="_blank">https://www.facebook.com/Costart01</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/costart/" target="_blank">https://www.linkedin.com/company/costart/</a></p>
+</div>
+        
+        
+        
+        <div class="sso-card" data-domain="social, environnemental" onclick="showDetails('sso14', event)">
+    <img src="https://tse4.mm.bing.net/th?id=OIP.D3jlwS80VzmoYCVbqVuAlQHaHa&pid=Api&P=0&h=180" alt="IMPACT PARTNER" class="small">
+    <h2>IMPACT PARTNER</h2>
+</div>
+        <div id="sso14" class="sso-details">
+    <h2>IMPACT PARTNER</h2><img src="https://tse4.mm.bing.net/th?id=OIP.D3jlwS80VzmoYCVbqVuAlQHaHa&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> social, environnemental</p>
+    <p><strong>Nombre Startup:</strong> 100</p>
+    <p><strong>Services:</strong> Formation, Mentorat</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2013</p>
+    <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://impactpartner.co/password" target="_blank">https://impactpartner.co/password</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/impactpartner/" target="_blank">https://www.facebook.com/impactpartner/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/impactpartner/" target="_blank">https://www.linkedin.com/company/impactpartner/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/impact.partner/" target="_blank">https://www.instagram.com/impact.partner/</a></p>
+    <p><strong>Email:</strong> contact@impactpartner.co</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="healthtech" onclick="showDetails('sso15', event)">
+    <img src="https://tse4.mm.bing.net/th?id=OIP._bqgnDdiA3-uzPELGFU0WAAAAA&pid=Api&P=0&h=180" alt="Connect'innov" class="small">
+    <h2>Connect'innov</h2>
+</div>
+        <div id="sso15" class="sso-details">
+    <h2>Connect'innov</h2><img src="https://tse4.mm.bing.net/th?id=OIP._bqgnDdiA3-uzPELGFU0WAAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> healthtech</p>
+    <p><strong>Nombre Startup:</strong> 80</p>
+    <p><strong>Services:</strong> Formation, Mentorat, financement, networking</p>
+    <p><strong>Startup Label Tunisia:</strong> OUI</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2020</p>
+    <p><strong>Principaux Partenaires:</strong> expertise France, GIZ</p>
+    <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Website:</strong> <a href="https://www.connect-innov.com/" target="_blank">https://www.connect-innov.com/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/connectinnov" target="_blank">https://www.facebook.com/connectinnov</a></p>
+</div>
+        
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso16', event)">
+    <img src="https://tse3.mm.bing.net/th?id=OIP.MXtTReGZlKh17TXdkN98wgAAAA&pid=Api&P=0&h=180" alt="Pole de compétitivité de Gafsa" class="small">
+    <h2>Pôle de compétitivité de Gafsa</h2>
+</div>
+        <div id="sso16" class="sso-details">
+    <h2>Pôle de compétitivité de Gafsa</h2><img src="https://tse3.mm.bing.net/th?id=OIP.MXtTReGZlKh17TXdkN98wgAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 70</p>
+    <p><strong>Services:</strong> formation, recherche</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Gafsa</p>
+    <p><strong>Année de Création:</strong> 2008</p>
+    <p><strong>Principaux Partenaires:</strong> USAID, GIZ</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://polegafsa.com.tn/" target="_blank">https://polegafsa.com.tn/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/polegafsa/" target="_blank">https://www.facebook.com/polegafsa/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/p%C3%B4le-de-comp%C3%A9titivit%C3%A9-de-gafsa/" target="_blank">https://www.linkedin.com/company/p%C3%B4le-de-comp%C3%A9titivit%C3%A9-de-gafsa/</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso26', event)">
+    <img src="https://tse2.mm.bing.net/th?id=OIP.rHyXL8hTmpnYxOfbyU6AcgAAAA&pid=Api&P=0&h=180" alt="RedStart" class="small">
+    <h2>RedStart</h2>
+</div>
+        <div id="sso26" class="sso-details">
+    <h2>RedStart</h2><img src="https://tse2.mm.bing.net/th?id=OIP.rHyXL8hTmpnYxOfbyU6AcgAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 60</p>
+    <p><strong>Services:</strong> formation, financemement</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2020</p>
+    <p><strong>Principaux Partenaires:</strong> innov'i, UE</p>
+    <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Website:</strong> <a href="http://redstart.tn/" target="_blank">http://redstart.tn/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/redstartunisie" target="_blank">https://www.facebook.com/redstartunisie</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/redstart-tunisie/?viewAsMember=true" target="_blank">https://www.linkedin.com/company/redstart-tunisie/?viewAsMember=true</a></p>
+    <p><strong>Email:</strong> douja.gharbi@restart.tn</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso17', event)">
+    <img src="https://tse2.mm.bing.net/th?id=OIP.he6Pi1NC6dT0ZVisqtV_ZQHaHa&pid=Api&P=0&h=180" alt="Tunisian American Enterprise Fund" class="small">
+    <h2>Tunisian American Enterprise Fund</h2>
+</div>
+        <div id="sso17" class="sso-details">
+    <h2>Tunisian American Enterprise Fund</h2><img src="https://tse2.mm.bing.net/th?id=OIP.he6Pi1NC6dT0ZVisqtV_ZQHaHa&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 50</p>
+    <p><strong>Services:</strong> Financement, Mentorat</p>
+    <p><strong>Startup Label Tunisia:</strong> Non</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2012</p>
+    <p><strong>Principaux Partenaires:</strong> USAID</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://www.taefund.org/en/" target="_blank">https://www.taefund.org/en/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/taefund.org/" target="_blank">https://www.facebook.com/taefund.org/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/tunisian-american-enterprise-fund/" target="_blank">https://www.linkedin.com/company/tunisian-american-enterprise-fund/</a></p>
+    <p><strong>Email:</strong> info@taefund.org</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="numérique" onclick="showDetails('sso18', event)">
+    <img src="https://tse4.mm.bing.net/th?id=OIP.9GKgeqYYLLUR-3QrZ-HbEAAAAA&pid=Api&P=0&h=180" alt="Foundup" class="small">
+    <h2>Foundup</h2>
+</div>
+        <div id="sso18" class="sso-details">
+    <h2>Foundup</h2><img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/298726134_444443381066217_6248761252567333088_n.png?_nc_cat=105&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=Z4katz3izMsQ7kNvgGcjXPr&_nc_ht=scontent.ftun1-2.fna&oh=00_AYDEhkTFhFs2EkCAVCy7uEFoPKTZvZO4oOg2xHwDGGIJdg&oe=669F056E">
+    <p><strong>Domaine:</strong> numérique</p>
+    <p><strong>Nombre Startup:</strong> 50</p>
+    <p><strong>Services:</strong> Mentorat, produit prêts pour le marché</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2021</p>
+    <p><strong>Principaux Partenaires:</strong> Smart Capital, The World Bank</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://fi.co/" target="_blank">https://fi.co/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/FounderInstituteTunisia" target="_blank">https://www.facebook.com/FounderInstituteTunisia</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/founderinstitutetunisia" target="_blank">https://www.linkedin.com/company/founderinstitutetunisia</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/founderinstitutetunisia" target="_blank">https://www.instagram.com/founderinstitutetunisia</a></p>
+    <p><strong>Email:</strong> achref.chafter@fimail.co</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso19', event)">
+    <img src="https://tse3.mm.bing.net/th?id=OIP.IqhKOUGBPZbcGvstOKSsYwHaDt&pid=Api&P=0&h=180" alt="Atuge" class="small">
+    <h2>Atuge</h2>
+</div>
+
+        <div id="sso19" class="sso-details">
+    <h2>Atuge</h2><img src="https://tse3.mm.bing.net/th?id=OIP.IqhKOUGBPZbcGvstOKSsYwHaDt&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 50</p>
+    <p><strong>Services:</strong> networking, formation</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2011</p>
+    <p><strong>Principaux Partenaires:</strong> GIZ, Smart Capital</p>
+    <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://www.atuge.org/" target="_blank">https://www.atuge.org/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/atuge.org" target="_blank">https://www.facebook.com/atuge.org</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/atuge/" target="_blank">https://www.linkedin.com/in/atuge/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/atuge.fr.tn.uk/" target="_blank">https://www.instagram.com/atuge.fr.tn.uk/</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso20', event)">
+    <img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/326482006_891232382000376_5103030668349691913_n.jpg?stp=dst-jpg_p200x200&_nc_cat=101&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=Cew8wvenCD4Q7kNvgG0IG3Q&_nc_ht=scontent.ftun1-2.fna&oh=00_AYDYrjwF8wWPpNvi0fKXKpd2lSOSKWZklkdg0mvgCjyC0g&oe=669EF9A1" alt="B@labs" class="small">
+    <h2>B@labs</h2>
+</div>
+        <div id="sso20" class="sso-details">
+    <h2>B@labs</h2><img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/326482006_891232382000376_5103030668349691913_n.jpg?stp=dst-jpg_p200x200&_nc_cat=101&ccb=1-7&_nc_sid=f4b9fd&_nc_aid=0&_nc_ohc=Cew8wvenCD4Q7kNvgG0IG3Q&_nc_ht=scontent.ftun1-2.fna&oh=00_AYDYrjwF8wWPpNvi0fKXKpd2lSOSKWZklkdg0mvgCjyC0g&oe=669EF9A1">
+    <p><strong>Domaine:</strong> Multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 40</p>
+    <p><strong>Services:</strong> Financement</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2017</p>
+    <p><strong>Principaux Partenaires:</strong> BIAT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Website:</strong> <a href="https://www.biatlabs.com/" target="_blank">https://www.biatlabs.com/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/biatlabs/" target="_blank">https://www.facebook.com/biatlabs/</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="Technologie et Innovation" onclick="showDetails('sso21', event)">
+    <img src="https://tse1.mm.bing.net/th?id=OIP.X9rGkOFF6VGrLkncR-2csAHaEG&pid=Api&P=0&h=180" alt="Innov'I" class="small">
+    <h2>Innov'I - EU4Innovation</h2>
+</div>
+        <div id="sso21" class="sso-details">
+    <h2>Innov'I - EU4Innovation</h2><img src="https://tse1.mm.bing.net/th?id=OIP.X9rGkOFF6VGrLkncR-2csAHaEG&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Technologie et Innovation</p>
+    <p><strong>Nombre Startup:</strong> 40</p>
+    <p><strong>Services:</strong> Financement, Partenariats</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2019</p>
+    <p><strong>Principaux Partenaires:</strong> Union Européenne</p>
+    <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://innovi.tn/" target="_blank">https://innovi.tn/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/innovi.tn/" target="_blank">https://www.facebook.com/innovi.tn/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/innovi-eu4innovation/" target="_blank">https://www.linkedin.com/company/innovi-eu4innovation/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/innovieu4innovation/" target="_blank">https://www.instagram.com/innovieu4innovation/</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso22', event)">
+    <img src="https://tse1.mm.bing.net/th?id=OIP.Q63FLp6FAci04S4WweIazAAAAA&pid=Api&P=0&h=180" alt="Moovjee" class="small">
+    <h2>Moovjee</h2>
+</div>
+        <div id="sso22" class="sso-details">
+    <h2>Moovjee</h2><img src="https://tse1.mm.bing.net/th?id=OIP.Q63FLp6FAci04S4WweIazAAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 40</p>
+    <p><strong>Services:</strong> formation, mentorat, financement</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2016</p>
+    <p><strong>Principaux Partenaires:</strong> ambassade de france, Express FM</p>
+    <p><strong>Fréquences des événements:</strong> MOYEN</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://www.moovjee-tunisie.com/" target="_blank">https://www.moovjee-tunisie.com/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/moovjee-tunisie-73418b118/" target="_blank">https://www.linkedin.com/in/moovjee-tunisie-73418b118/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/moovjee/" target="_blank">https://www.instagram.com/moovjee/</a></p>
+    <p><strong>Email:</strong> moovjeetunisie@gmail.com</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso23', event)">
+    <img src="https://tse1.mm.bing.net/th?id=OIP.En6f7_shACmgqGXZOOg7CQHaHa&pid=Api&P=0&h=180" alt="Novation city" class="small">
+    <h2>Novation city</h2>
+</div>
+        <div id="sso23" class="sso-details">
+    <h2>Novation city</h2><img src="https://tse1.mm.bing.net/th?id=OIP.En6f7_shACmgqGXZOOg7CQHaHa&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 40</p>
+    <p><strong>Services:</strong> mentorat</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Sousse</p>
+    <p><strong>Année de Création:</strong> 2009</p>
+    <p><strong>Principaux Partenaires:</strong> Universite Nice Sophia Antipolis</p>
+    <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Website:</strong> <a href="https://www.novationcity.com/" target="_blank">https://www.novationcity.com/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/novationcity/" target="_blank">https://www.facebook.com/novationcity/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/novationcity/" target="_blank">https://www.linkedin.com/company/novationcity/</a></p>
+    <p><strong>Email:</strong> contact@pcs.tn</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="plutôt social mais multi-secteurs" onclick="showDetails('sso24', event)">
+    <img src="https://tse3.mm.bing.net/th?id=OIP.ZsfjX1tAX0K_X7eXGSmJPgHaB2&pid=Api&P=0&h=180" alt="Wasabi(AFKAR)" class="small">
+    <h2>Wasabi (AFKAR)</h2>
+</div>
+        <div id="sso24" class="sso-details">
+    <h2>Wasabi (AFKAR)</h2><img src="https://tse3.mm.bing.net/th?id=OIP.ZsfjX1tAX0K_X7eXGSmJPgHaB2&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> plutôt social mais multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 35</p>
+    <p><strong>Services:</strong> formation, mentorat</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2013</p>
+    <p><strong>Principaux Partenaires:</strong> GIZ, Expertise France</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://afkar.co/fr/" target="_blank">https://afkar.co/fr/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/FondationAfkar" target="_blank">https://www.facebook.com/FondationAfkar</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/afkarincubator/" target="_blank">https://www.linkedin.com/company/afkarincubator/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/afkarincubator/?hl=fr" target="_blank">https://www.instagram.com/afkarincubator/?hl=fr</a></p>
+    <p><strong>Email:</strong> mayssa@afkar.tn</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="numerique" onclick="showDetails('sso25', event)">
+    <img src="https://tse4.mm.bing.net/th?id=OIP.NhOqyEEvXZozvh8cOs3lFgHaHa&pid=Api&P=0&h=180" alt="Technoriat" class="small">
+    <h2>Technoriat</h2>
+</div>
+        <div id="sso25" class="sso-details">
+    <h2>Technoriat (Our Digital Future)</h2><img src="https://tse4.mm.bing.net/th?id=OIP.NhOqyEEvXZozvh8cOs3lFgHaHa&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> numerique</p>
+    <p><strong>Nombre Startup:</strong> 25</p>
+    <p><strong>Services:</strong> formation, mentorat</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2021</p>
+    <p><strong>Principaux Partenaires:</strong> Smart Capital, Expertise France</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://technoriat.net/" target="_blank">https://technoriat.net/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/Technoriat/" target="_blank">https://www.facebook.com/Technoriat/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/technoriat/" target="_blank">https://www.linkedin.com/company/technoriat/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/technoriat/" target="_blank">https://www.instagram.com/technoriat/</a></p>
+    <p><strong>Email:</strong> contact@ourdigitalfuture.org</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="technologie et numérique" onclick="showDetails('sso40', event)">
+    <img src="https://tse2.mm.bing.net/th?id=OIP.FNCgrWJnrVmihoJYBDtX3gHaEj&pid=Api&P=0&h=180" alt="Wiki Start Up" class="small">
+    <h2>Wiki Start Up</h2>
+</div>
+        <div id="sso40" class="sso-details">
+    <h2>Wiki Start Up</h2><img src="https://tse2.mm.bing.net/th?id=OIP.FNCgrWJnrVmihoJYBDtX3gHaEj&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Technologie et Numérique</p>
+    <p><strong>Nombre Startup:</strong> 25</p>
+    <p><strong>Services:</strong> Mentorat, Financement</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2011</p>
+    <p><strong>Principaux Partenaires:</strong> BIAT, Enda Inter-Arabe</p>
+    <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="http://wikistartup.tn/" target="_blank">http://wikistartup.tn/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/wikistartuptunisia/" target="_blank">https://www.facebook.com/wikistartuptunisia/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/groups/8460267/" target="_blank">https://www.linkedin.com/groups/8460267/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/wikistartup/" target="_blank">https://www.instagram.com/wikistartup/</a></p>
+    <p><strong>Email:</strong> info@wikistartup.tn</p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="Industries Créatives et Culturelles" onclick="showDetails('sso27', event)">
+    <img src="https://tse3.mm.bing.net/th?id=OIP.5AEPccKvtnftY6bUE2FqCwAAAA&pid=Api&P=0&h=180" alt="Minassa" class="small">
+    <h2>Minassa</h2>
+</div>
+        <div id="sso27" class="sso-details">
+    <h2>Minassa</h2><img src="https://tse3.mm.bing.net/th?id=OIP.5AEPccKvtnftY6bUE2FqCwAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Industries Créatives et Culturelles</p>
+    <p><strong>Nombre Startup:</strong> 25</p>
+    <p><strong>Services:</strong> Mentorat, Financement</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2019</p>
+    <p><strong>Principaux Partenaires:</strong> Ministère de la Culture; INCO</p>
+    <p><strong>Fréquences des événements:</strong> MOYEN</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://www.minassa.co/" target="_blank">https://www.minassa.co/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/minassa.co/" target="_blank">https://www.facebook.com/minassa.co/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/minassa/" target="_blank">https://www.linkedin.com/company/minassa/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/minassa.co/" target="_blank">https://www.instagram.com/minassa.co/</a></p>
+    <p><strong>Email:</strong> claire@inco-group.co</p>
+</div>
+        
+        <div class="sso-card" data-domain="social, integration economique" onclick="showDetails('sso28', event)">
+    <img src="https://media.licdn.com/dms/image/D4D0BAQH1LpRZvkKl4Q/company-logo_200_200/0/1688137575334?e=1729123200&v=beta&t=7HJVMAn-a9T7V61MoSqcBMYxPgyKBBB6zcaa2ErDLIw" alt="KUFANYA (Lab'ess)" class="small">
+    <h2>KUFANYA (Lab'ess)</h2>
+</div>
+        <div id="sso28" class="sso-details">
+    <h2>KUFANYA (Lab'ess)</h2><img src="https://media.licdn.com/dms/image/D4D0BAQH1LpRZvkKl4Q/company-logo_200_200/0/1688137575334?e=1729123200&v=beta&t=7HJVMAn-a9T7V61MoSqcBMYxPgyKBBB6zcaa2ErDLIw">
+    <p><strong>Domaine:</strong> social, integration economique</p>
+    <p><strong>Nombre Startup:</strong> 25</p>
+    <p><strong>Services:</strong> formation, mentorat, financement</p>
+    <p><strong>Startup Label Tunisia:</strong> oui</p>
+    <p><strong>Location:</strong> Sfax</p>
+    <p><strong>Année de Création:</strong> 2019</p>
+    <p><strong>Principaux Partenaires:</strong> UE, GIZ</p>
+    <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://www.labess.tn/" target="_blank">https://www.labess.tn/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/kufanyaincub" target="_blank">https://www.facebook.com/kufanyaincub</a></p>
+</div>
+        
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso29', event)">
+    <img src="https://media.licdn.com/dms/image/C4D03AQE3OQ5VRIVtlA/profile-displayphoto-shrink_400_400/0/1590072392057?e=1726704000&v=beta&t=g5TrWrXoZdGm_DMKYEsOHHQpY5rYk1CVf3i-WyEdAbo" alt="CSR" class="small">
+    <h2>CSR</h2>
+</div>
+        <div id="sso29" class="sso-details">
+    <h2>CSR</h2><img src="https://media.licdn.com/dms/image/C4D03AQE3OQ5VRIVtlA/profile-displayphoto-shrink_400_400/0/1590072392057?e=1726704000&v=beta&t=g5TrWrXoZdGm_DMKYEsOHHQpY5rYk1CVf3i-WyEdAbo">
+    <p><strong>Domaine:</strong> multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 15</p>
+    <p><strong>Services:</strong> financement, formation, networking</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Jandouba</p>
+    <p><strong>Année de Création:</strong> 2020</p>
+    <p><strong>Principaux Partenaires:</strong> GIZ, Smart Capital</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://www.facebook.com/csrcoworking" target="_blank">https://www.facebook.com/csrcoworking</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/csr-coworking-space-b956b61aa/" target="_blank">https://www.linkedin.com/in/csr-coworking-space-b956b61aa/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/csr_coworking_space/?hl=fr" target="_blank">https://www.instagram.com/csr_coworking_space/?hl=fr</a></p>
+</div>
+        
+        
+       <div class="sso-card" data-domain="Multi-secteurs" onclick="showDetails('sso30', event)">
+    <img src="https://www.smu.tn/storage/app/media/logos/smu_logo.png" alt="SMU Incubator (MSB)" class="small">
+    <h2>SMU Incubator (MSB)</h2>
+</div>
+    <div id="sso30" class="sso-details">
+    <h2>SMU Incubator (MSB)</h2><img src="https://www.smu.tn/storage/app/media/logos/smu_logo.png">
+    <p><strong>Domaine:</strong> Multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 11</p>
+    <p><strong>Services:</strong> mentorat, formation</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2019</p>
+    <p><strong>Principaux Partenaires:</strong> MSB</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://www.smu.tn/smu/smu-incubator" target="_blank">https://www.smu.tn/smu/smu-incubator</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="agritech" onclick="showDetails('sso32', event)">
+    <img src="https://tse2.mm.bing.net/th?id=OIP.zk9Coqnwef0w-Y-vfnfVewAAAA&pid=Api&P=0&h=180" alt="Medianet" class="small">
+    <h2>Medianet</h2>
+</div>
+        <div id="sso32" class="sso-details">
+    <h2>Medianet</h2><img src="https://tse2.mm.bing.net/th?id=OIP.zk9Coqnwef0w-Y-vfnfVewAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> agritech</p>
+    <p><strong>Nombre Startup:</strong> 8</p>
+    <p><strong>Services:</strong> Formation, Mentorat, financement, networking</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong>2023</p>
+    <p><strong>Fréquences des événements:</strong>MOYEN</p>
+    <p><strong>Website:</strong> <a href="https://www.medianet.tn/en/medianet-incubator" target="_blank">https://www.medianet.tn/en/medianet-incubator</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/people/MEDIANET-Incubator/100093231013821/" target="_blank">https://www.facebook.com/people/MEDIANET-Incubator/100093231013821/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/medianet-incubator/" target="_blank">https://www.linkedin.com/company/medianet-incubator/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/medianet_incubator/" target="_blank">https://www.instagram.com/medianet_incubator/</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="santé, technologie numerique" onclick="showDetails('sso33', event)">
+    <img src="https://tse3.mm.bing.net/th?id=OIP.MKBe0a1cR1YNDw-eK60EFgAAAA&pid=Api&P=0&h=180" alt="Factory 619" class="small">
+    <h2>Factory 619</h2>
+</div>
+        <div id="sso33" class="sso-details">
+    <h2>Factory 619</h2><img src="https://tse3.mm.bing.net/th?id=OIP.MKBe0a1cR1YNDw-eK60EFgAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> santé, technologie numerique</p>
+    <p><strong>Nombre Startup:</strong> 7</p>
+    <p><strong>Services:</strong> mentorat, formation, financement, pré-accelerateur</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2017</p>
+    <p><strong>Principaux Partenaires:</strong> express fm, nextera</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://factory619.com/" target="_blank">https://factory619.com/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/factory619/" target="_blank">https://www.facebook.com/factory619/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/factory619/" target="_blank">https://www.linkedin.com/company/factory619/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/factory619/" target="_blank">https://www.instagram.com/factory619/</a></p>
+</div>
+        <div class="sso-card" data-domain="Multi-secteurs" onclick="showDetails('sso34', event)">
+    <img src="https://tse2.mm.bing.net/th?id=OIP.LFzC2Aqi7C1gBj4GPbI35gAAAA&pid=Api&P=0&h=180" alt="Coworky" class="small">
+    <h2>Coworky</h2>
+</div>
+        <div id="sso34" class="sso-details">
+    <h2>Coworky</h2><img src="https://tse2.mm.bing.net/th?id=OIP.LFzC2Aqi7C1gBj4GPbI35gAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 4</p>
+    <p><strong>Services:</strong> formation, networking</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Nabeul</p>
+    <p><strong>Année de Création:</strong> 2016</p>
+    <p><strong>Principaux Partenaires:</strong> smart capital, GIZ</p>
+    <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Website:</strong> <a href="http://coworky.org/" target="_blank">http://coworky.org/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/coworkyspace" target="_blank">https://www.facebook.com/coworkyspace</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/coworkysspace/" target="_blank">https://www.linkedin.com/company/coworkysspace/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/coworky.space/" target="_blank">https://www.instagram.com/coworky.space/</a></p>
+</div>
+        <div class="sso-card" data-domain="multi-secteurs" onclick="showDetails('sso35', event)">
+    <img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/294213012_755960095388271_406930323561946176_n.png?stp=dst-png_p200x200&_nc_cat=106&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=nx0ITdYXxR4Q7kNvgE2JAAc&_nc_ht=scontent.ftun1-2.fna&oh=00_AYDou3VzXprb6ve5NMLGl6UtyhQWLG7A3j65HxyyEYzWZw&oe=669F09DC" alt="BEE COWORKING SPACE" class="small">
+    <h2>BEE COWORKING SPACE</h2>
+</div>
+        <div id="sso35" class="sso-details">
+    <h2>BEE COWORKING SPACE</h2>
+    <p><strong>Domaine:</strong> multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> 4</p>
+    <p><strong>Services:</strong> formation, mentorat, networking</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Gabes</p>
+    <p><strong>Année de Création:</strong> 2017</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/bee.coworkingspace/" target="_blank">https://www.facebook.com/bee.coworkingspace/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://tn.linkedin.com/in/bee-coworking-space-37049a215" target="_blank">https://tn.linkedin.com/in/bee-coworking-space-37049a215</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/bee_coworking_space/" target="_blank">https://www.instagram.com/bee_coworking_space/</a></p>
+    <p><strong>Email:</strong> <a href="mailto:beecoworking.project@gmail.com">beecoworking.project@gmail.com</a></p>
+</div>
+        <div class="sso-card" data-domain="Multi-secteurs" onclick="showDetails('sso36', event)">
+    <img src="https://tse4.mm.bing.net/th?id=OIP.IryaW8DFC52EDzW7nh829wHaEp&pid=Api&P=0&h=180" alt="Hive 12" class="small">
+    <h2>Hive 12</h2>
+</div>
+        <div id="sso36" class="sso-details">
+    <h2>Hive 12</h2><img src="https://tse4.mm.bing.net/th?id=OIP.IryaW8DFC52EDzW7nh829wHaEp&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Multi-secteurs</p>
+    <p><strong>Nombre Startup:</strong> Non spécifié</p>
+    <p><strong>Services:</strong> networking, formation</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2018</p>
+    <p><strong>Principaux Partenaires:</strong> EU</p>
+    <p><strong>Fréquences des événements:</strong> MOYEN</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/Hive12Hub" target="_blank">https://www.facebook.com/Hive12Hub</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/hive12/" target="_blank">https://www.linkedin.com/company/hive12/</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="numérique, gaming" onclick="showDetails('sso37', event)">
+    <img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/326474618_1046594523398177_490547605697347288_n.png?stp=dst-png_p200x200&_nc_cat=105&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=3WxKoJxkFwQQ7kNvgHhQjj1&_nc_ht=scontent.ftun1-2.fna&oh=00_AYCx4kwJCsQ1iKW4WFr5H8S0th-0CMwZkDJATfHURAVljQ&oe=669EE1F4" alt="Level 1 ( POC'IT)" class="small">
+    <h2>Level 1 ( POC'IT)</h2>
+</div>
+        <div id="sso37" class="sso-details">
+    <h2>Level 1 (POC'IT)</h2><img src="https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-1/326474618_1046594523398177_490547605697347288_n.png?stp=dst-png_p200x200&_nc_cat=105&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=3WxKoJxkFwQQ7kNvgHhQjj1&_nc_ht=scontent.ftun1-2.fna&oh=00_AYCx4kwJCsQ1iKW4WFr5H8S0th-0CMwZkDJATfHURAVljQ&oe=669EE1F4">
+    <p><strong>Domaine:</strong> numérique, gaming</p>
+    <p><strong>Nombre Startup:</strong> Non spécifié</p>
+    <p><strong>Services:</strong> formation</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2021</p>
+    <p><strong>Principaux Partenaires:</strong> GIZ, Banque Mondiale</p>
+    <p><strong>Fréquences des événements:</strong> REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="http://www.level1hub.com/" target="_blank">http://www.level1hub.com/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/Level1Hub" target="_blank">https://www.facebook.com/Level1Hub</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/level-1-69764915b/" target="_blank">https://www.linkedin.com/in/level-1-69764915b/</a></p>
+</div>v
+        <div class="sso-card" data-domain="fashiontech, agribusiness" onclick="showDetails('sso38', event)">
+    <img src="https://tse3.mm.bing.net/th?id=OIP.-PC0vbnfr4EttkDpeXqyFQAAAA&pid=Api&P=0&h=180" alt="1Kub" class="small">
+    <h2>1Kub</h2>
+</div>
+        <div id="sso38" class="sso-details">
+    <h2>1Kub</h2><img src="https://tse3.mm.bing.net/th?id=OIP.-PC0vbnfr4EttkDpeXqyFQAAAA&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> fashiontech, agribusiness</p>
+    <p><strong>Nombre Startup:</strong> Non spécifié</p>
+    <p><strong>Services:</strong> mentorat, formation</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Tunis</p>
+    <p><strong>Année de Création:</strong> 2022</p>
+    <p><strong>Principaux Partenaires:</strong> GIZ, Banque Mondiale</p>
+    <p><strong>Fréquences des événements:</strong> TRES REGULIEREMENT</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> NON</p>
+    <p><strong>Website:</strong> <a href="https://1kub.net/" target="_blank">https://1kub.net/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/1kub.net" target="_blank">https://www.facebook.com/1kub.net</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/1kub-incubateur/" target="_blank">https://www.linkedin.com/company/1kub-incubateur/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/1kub_lincubateur/" target="_blank">https://www.instagram.com/1kub_lincubateur/</a></p>
+</div>
+        
+        
+        <div class="sso-card" data-domain="Environnement" onclick="showDetails('sso39', event)">
+    <img src="https://tse1.mm.bing.net/th?id=OIP.otk2VEILGeeMYF0mx_7HvQHaEG&pid=Api&P=0&h=180" alt="CoZi" class="small">
+    <h2>CoZi</h2>
+</div>
+        <div id="sso39" class="sso-details">
+    <h2>CoZi</h2><img src="https://tse1.mm.bing.net/th?id=OIP.otk2VEILGeeMYF0mx_7HvQHaEG&pid=Api&P=0&h=180">
+    <p><strong>Domaine:</strong> Environnement</p>
+    <p><strong>Nombre Startup:</strong> Non spécifié</p>
+    <p><strong>Services:</strong> Mentorat, networking</p>
+    <p><strong>Startup Label Tunisia:</strong> Oui</p>
+    <p><strong>Location:</strong> Djerba</p>
+    <p><strong>Année de Création:</strong> 2016</p>
+    <p><strong>Principaux Partenaires:</strong> USAID, Tunisia JOBS</p>
+    <p><strong>Fréquences des événements:</strong> FAIBLE</p>
+    <p><strong>Accès à des bureaux ou espaces de coworking:</strong> OUI</p>
+    <p><strong>Website:</strong> <a href="https://cozi.tn/en/" target="_blank">https://cozi.tn/en/</a></p>
+    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/CoZi.tn/" target="_blank">https://www.facebook.com/CoZi.tn/</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/cozi-tn/" target="_blank">https://www.linkedin.com/company/cozi-tn/</a></p>
+    <p><strong>Instagram:</strong> <a href="https://instagram.com/cozi.tn/" target="_blank">https://instagram.com/cozi.tn/</a></p>
+</div>
+        
+        
+
+
+
+    </main>
+    </body>
+</html>

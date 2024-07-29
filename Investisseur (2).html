@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investisseurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #white;
+        }
+        header {
+            background-color: white;
+            color: #f21717;
+            text-align: center;
+            padding: 0.5em 0; /* Adjusted padding to make the button smaller */
+            cursor: pointer;
+            font-size: 1em; /* Adjusted font size to make the text smaller */
+            width: 150px; /* Fixed width for the button */
+            margin: 0 auto; /* Center the button */
+            border-radius: 5px; /* Optional: add border-radius for a rounded button */
+            border: 1px solid #f21717; /* Optional: add border for better visibility */
+        }
+        main {
+            background-color: white;
+            padding: 1em;
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #000;
+            margin: 1em 0;
+        }
+        .investor-cards {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            flex-wrap: wrap;
+        }
+        .investor-card {
+            border: 0.5px solid #white;
+            border-radius: 10px;
+            margin: 0.5em;
+            padding: 1em;
+            width: 200px;
+            text-align: center;
+            box-sizing: border-box;
+            cursor: pointer;
+            background-color: white;
+        }
+        .investor-card img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .investor-details {
+            display: none;
+            text-align: left;
+            width: 100%;
+            margin-top: 1em;
+            padding: 1em;
+            border: 0.5px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            font-size: 1.1em; /* Augmentation de la taille de la police */
+            line-height: 1.6em; /* Espacement entre les lignes pour meilleure lisibilité */
+        }
+    </style>
+    <script>
+        function showDetails(id, event) {
+            event.stopPropagation();
+            const details = document.querySelectorAll('.investor-details');
+            details.forEach(detail => {
+                detail.style.display = 'none';
+            });
+            document.getElementById(id).style.display = 'block';
+        }
+
+        // Add event listener for clicks on the document
+        document.addEventListener('click', function(event) {
+            const details = document.querySelectorAll('.investor-details');
+            details.forEach(detail => {
+                detail.style.display = 'none';
+            });
+        });
+
+        // Prevent event propagation for clicks inside the main content
+        document.querySelector('main').addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    </script>
+</head>
+<body>
+    <header onclick="window.location.href='index.html'">
+        <h1>Retour à l'accueil</h1>
+    </header>
+    <main>
+        <div class="section-title">Investisseurs</div>
+        <div class="investor-cards">
+            <div class="investor-card" onclick="showDetails('investor17', event)">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.CUEus_pgZjDE4OQtJ-2_5QHaDd&pid=Api&P=0&h=180" alt="Expertise France" class="small">
+                <h2>Expertise France</h2>
+            </div>
+            <div id="investor17" class="investor-details">
+                <h2>Expertise France</h2>
+                <p>Expertise France est une agence française de coopération technique internationale, qui opère dans plus de 100 pays avec un portefeuille de plus de 600 projets. En Tunisie, Expertise France travaille activement pour soutenir les startups et les structures de soutien aux startups (SSO).
+
+Partenaires et Initiatives en Tunisie
+Innov'i  EU4Innovation : Ce projet, financé par l'Union Européenne et mis en Suvre par Expertise France, vise à renforcer et structurer l'écosystème de l'innovation et de l'entrepreneuriat en Tunisie. Innov'i a aidé plus de 100 entrepreneurs et soutenu environ 20 structures de soutien à l'innovation, comme des incubateurs et des accélérateurs.
+
+Projet ENLIEN : En collaboration avec la Caisse des Dépôts et Consignations (CDC) de Tunisie, ce projet vise à améliorer les services offerts aux entrepreneurs et à restructurer le réseau des incubateurs publics en Tunisie. Ce projet bénéficie d'un financement de 5 millions d'euros de l'Agence Française de Développement (AFD).
+
+Projet FAST : Ce projet vise à structurer et à renforcer l'écosystème entrepreneurial en Tunisie, en mettant un accent particulier sur l'entrepreneuriat féminin. Le projet soutient les structures d'incubation dirigées par des femmes et établit des partenariats avec de grandes entreprises pour accélérer le développement des startups et des PME.
+
+Ces initiatives montrent l'engagement d'Expertise France à favoriser un environnement propice à l'innovation et à l'entrepreneuriat en Tunisie, contribuant ainsi au développement économique durable du pays</p>
+            </div>
+            <div class="investor-card" onclick="showDetails('investor26', event)">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.qRVCF8Ra_2x122YpO2rhIwHaF8&pid=Api&P=0&h=180" alt="GIZ" class="small">
+                <h2>GIZ</h2>
+            </div>
+            <div id="investor26" class="investor-details">
+                <h2>GIZ</h2>
+                <p>La GIZ (Deutsche Gesellschaft für Internationale Zusammenarbeit GmbH) est une agence de développement allemande qui opère à l'échelle mondiale, fournissant des services dans les domaines du développement durable, de la gouvernance, et de l'éducation. En Tunisie, la GIZ collabore avec divers partenaires pour soutenir les startups et les structures de soutien aux startups (SSO).
+
+Partenaires Clés en Tunisie
+Startup Tunisia : À travers le programme HALO, mis en Suvre par Smart Capital avec le soutien de la GIZ, cette initiative vise à former et à soutenir les business angels tout en facilitant les connexions avec les startups.
+Make-IT in Africa : Ce programme soutenu par la GIZ promeut l'innovation et l'entrepreneuriat technologique en offrant des formations, du mentorat et des opportunités de mise en réseau aux startups technologiques.
+CEED Tunisia : La GIZ soutient CEED Tunisia pour fournir des formations, du mentorat et des opportunités de mise en réseau aux entrepreneurs tunisiens.
+Ces collaborations visent à renforcer l'écosystème entrepreneurial en Tunisie, en offrant des ressources et un soutien essentiels pour la croissance des startups locales.</p>
+            </div>
+            <div class="investor-card" onclick="showDetails('investor13', event)">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.N90kVJiGuvGNf1cA0JntLQHaEK&pid=Api&P=0&h=180" alt="The World Bank" class="small">
+                <h2>The World Bank</h2>
+            </div>
+            <div id="investor13" class="investor-details">
+                <h2>The World Bank</h2>
+                <p>La Banque Mondiale joue un rôle crucial dans le soutien aux startups et aux petites et moyennes entreprises (PME) en Tunisie à travers plusieurs projets majeurs.
+
+Partenaires et Initiatives en Tunisie
+Projet "Innovative Startups and SMEs" : Financé à hauteur de 75 millions de dollars par la Banque Mondiale, ce projet soutient le programme national "Startup Tunisia" en augmentant l'accès au financement et en promouvant la croissance des startups et des PME innovantes. Ce projet, mis en Suvre en partenariat avec la Caisse de Dépôts et Consignations (CDC) et Smart Capital, vise à créer plus de 1 800 emplois directs, dont 30% pour les femmes et 20% pour les jeunes âgés de 18 à 35 ans. Il comprend des investissements en capital et quasi-capital pour les startups et les PME, ainsi que le soutien aux incubateurs et aux accélérateurs pour améliorer et étendre leurs programmes (African Business) (Ventureburn) (World Bank Blogs).
+Ces initiatives montrent l'engagement de la Banque Mondiale à renforcer l'écosystème entrepreneurial en Tunisie, en facilitant l'accès au financement et en soutenant le développement des startups et des PME innovantes.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor24', event)">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.FMr1nZDumaDHR_HOiGY0cAHaEK&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>EU</h2>
+            </div>
+            <div id="investor24" class="investor-details">
+                <h2>EU</h2>
+                <p>'Union Européenne joue un rôle essentiel dans le développement et le soutien de l'écosystème entrepreneurial en Tunisie. À travers divers programmes et initiatives, elle vise à renforcer les capacités des startups et des organisations de soutien aux startups (SSO), tout en promouvant l'innovation et la croissance économique.
+
+L'Union Européenne et la Tunisie ont signé un accord de partenariat global en 2023, couvrant divers domaines tels que la stabilité macroéconomique, le commerce et l'investissement, la transition énergétique verte, et les contacts entre les peuples. Ce partenariat vise à renforcer les liens économiques et à créer des opportunités pour les entreprises, y compris les PME et les startups (EU Enlargement) (EU Enlargement).
+
+Initiatives Clés de l'Union Européenne en Tunisie
+L'une des initiatives phares de l'Union Européenne en Tunisie est le programme Innov'i - EU4Innovation. Ce programme, doté d'un budget de 25 millions d'euros, vise à renforcer l'écosystème entrepreneurial en offrant un soutien technique et financier aux startups. Innov'i a déjà aidé plus de 100 startups et SSO, facilitant les partenariats avec des acteurs européens et locaux, contribuant ainsi à la croissance et à l'innovation en Tunisie (EU Enlargement) (EU Enlargement).
+
+Un autre exemple significatif est RedStart Tunisie, qui fait partie du projet Innov'i. Ce programme offre un accompagnement intensif, du mentorat et des financements aux startups tunisiennes. À ce jour, 20 startups ont bénéficié de ce programme, améliorant leur accès au marché et leur compétitivité grâce à un soutien direct et ciblé.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor11', event)">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.CaL4ektE3zSRNKwgRVS44QHaEt&pid=Api&P=0&h=180" alt="ATB" class="small">
+                <h2>LArab Tunisian Bank</h2>
+            </div>
+            <div id="investor11" class="investor-details">
+                <h2>LArab Tunisian Bank</h2>
+                <p>Arab Tunisian Bank (ATB) est une banque commerciale tunisienne créée en 1982 par l'intégration d'une branche de la Banque Arabe de Tunis avec des individus tunisiens. La mission de la banque est de contribuer au développement économique et financier de la Tunisie. ATB offre une gamme variée de produits et services bancaires, incluant des comptes d'épargne, des dépôts à terme, des cartes bancaires, des services de transfert d'argent, ainsi que des services de financement et de gestion de portefeuille.
+
+En matière de soutien aux startups et aux structures de soutien aux startups (SSO), ATB est partenaire de CoStar au Sfax Technopole. Ce partenariat vise à renforcer l'écosystème entrepreneurial en offrant des services et des soutiens financiers aux jeunes entreprises innovantes.
+
+Ces collaborations montrent l'engagement d'ATB à promouvoir l'innovation et à soutenir le développement des startups en Tunisie, contribuant ainsi à la croissance économique et au dynamisme de l'écosystème entrepreneurial local.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor27', event)">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.rWlYwXofF6m5WGLlqItZHQHaHa&pid=Api&P=0&h=180" alt="USAID" class="small">
+                <h2>USAID</h2>
+            </div>
+            <div id="investor27" class="investor-details">
+                <h2>USAID</h2>
+                <p>USAID (U.S. Agency for International Development) est une agence américaine qui soutient le développement international. En Tunisie, USAID joue un rôle crucial dans le soutien aux startups et aux petites et moyennes entreprises (PME).
+
+Initiatives et Partenariats en Tunisie
+Tunisia JOBS (Jobs, Opportunities, and Business Success) : Ce programme de cinq ans soutient les PME en Tunisie pour créer des emplois durables. En partenariat avec Baobab Tunisie et Advans Tunisie, USAID a mobilisé plus de 31 millions de dollars pour soutenir 13 000 micro et petites entreprises tunisiennes, y compris des entreprises dirigées par des femmes.
+
+Innovative Startups and SMEs Project : Financé à hauteur de 75 millions de dollars, ce projet soutient le programme national "Startup Tunisia" en augmentant l'accès au financement pour les startups et les PME innovantes, et en soutenant les incubateurs et les accélérateurs locaux.
+
+Ces initiatives montrent l'engagement d'USAID à renforcer l'écosystème entrepreneurial en Tunisie, en facilitant l'accès au financement et en soutenant le développement des startups et des PME innovantes.</p>
+            </div>
+
+            <div class="investor-card" onclick="showDetails('investor1', event)">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.RiDDDiO_cMYNzgxBsenrKAHaFP&pid=Api&P=0&h=180" alt="Orange" class="small">
+                <h2>Orange</h2>
+            </div>
+            <div id="investor1" class="investor-details">
+                <h2>Orange</h2>
+                <p>Orange est une entreprise de télécommunications qui soutient activement les startups et les structures de soutien aux startups (SSO) en Tunisie à travers plusieurs programmes et partenariats.
+
+Initiatives et Partenariats en Tunisie
+Orange Fab Tunisia : Le premier accélérateur d'entreprises en Tunisie, visant à soutenir les startups innovantes. Depuis sa création, Orange Fab Tunisia a accéléré 23 startups à travers divers programmes de trois à six mois, améliorant leurs opérations commerciales et facilitant les collaborations avec Orange Tunisie et ses partenaires internationaux.
+
+Orange Digital Center : Ce centre offre une gamme complète de services de soutien aux startups, y compris des formations en codage, de l'incubation technique et du prototypage (Fablabs Solidaires), ainsi que l'accélération de startups (Orange Fab Tunisia). L'Orange Digital Center vise à démocratiser l'accès aux technologies numériques et à l'innovation pour tous, soutenant ainsi la transformation numérique en Tunisie.
+
+Partenariat avec MakerLab : Orange Tunisie collabore avec MakerLab, un espace technologique visant à promouvoir la technologie parmi les jeunes et à fournir le soutien nécessaire pour apprendre, prototyper leurs idées de projets et lancer ou améliorer leurs startups. Ce partenariat permet à Orange de contribuer à la formation de jeunes talents et à la création de nouvelles opportunités économiques en Tunisie.</p>
+            </div>  
+            
+            <div class="investor-card" onclick="showDetails('investor4', event)">
+                <h2>ooredoo</h2>
+            </div>
+            <div id="investor4" class="investor-details">
+                <h2>ooredoo</h2>
+                <p></p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor5', event)">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.hxrsAOfEoDw_Pj4JkozXQQAAAA&pid=Api&P=0&h=180" alt="Attijari Bank" class="small">
+                <h2>Attijari Bank</h2>
+            </div>
+            <div id="investor5" class="investor-details">
+                <h2>Attijari Bank</h2>
+                <p>Attijari Bank est une banque commerciale tunisienne engagée dans le soutien aux startups et aux PME à travers divers partenariats et initiatives.
+
+Partenariat avec Betacube : Attijari Bank est partenaire de Betacube, collaborant pour soutenir l'écosystème des startups en Tunisie. Ce partenariat permet à Attijari Bank de fournir des services financiers adaptés aux besoins des startups et de contribuer à leur développement en facilitant l'accès au financement et en offrant des conseils stratégiques.
+Partenariat avec la Banque Européenne pour la Reconstruction et le Développement (BERD) : Attijari Bank a collaboré avec la BERD pour fournir une garantie de partage des risques de 50 % sur un prêt de 20 millions de TND à la Compagnie Internationale de Leasing (CIL), destiné aux PME locales.
+Collaboration avec le PNUD : Attijari Bank et le Programme des Nations Unies pour le Développement (PNUD) ont signé un protocole d'accord pour soutenir le développement local inclusif et l'écosystème entrepreneurial en Tunisie. Ce partenariat vise à promouvoir l'engagement actif du secteur privé dans le développement durable et à fournir un soutien financier et technique aux entrepreneurs et aux petites entreprises dans six régions du sud de la Tunisie</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor7', event)">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.2wtwKvjch2jlNLc_qqaMAgHaEW&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>tunisie leasing</h2>
+            </div>
+            <div id="investor7" class="investor-details">
+                <h2>tunisie leasing</h2>
+                <p>Tunisie Leasing et Factoring est une institution financière fondée en 1984, spécialisée dans le crédit-bail (leasing) et l'affacturage en Tunisie. Elle offre des solutions de financement pour l'acquisition de biens mobiliers et immobiliers pour les PME tunisiennes.
+
+Partenariats et Initiatives en Tunisie
+Partenariat avec Réseau Entreprendre Tunisie : Tunisie Leasing et Factoring soutient Réseau Entreprendre Tunisie en fournissant des fonds de prêts et en renforçant les capacités des entrepreneurs. Réseau Entreprendre Tunisie offre un accompagnement gratuit et personnalisé aux nouveaux entrepreneurs, ainsi qu'un financement sous forme de prêt d'honneur allant de 10 000 à 30 000 dinars tunisiens, remboursable sur 5 ans sans intérêts ni garanties, avec 18 mois de grâce.
+Ces collaborations montrent l'engagement de Tunisie Leasing et Factoring à soutenir le développement des PME en Tunisie, en offrant des financements flexibles et en contribuant au renforcement de l'écosystème entrepreneurial local.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor8', event)">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.6UBaEzmlpEiKSK0FcqySyAHaEo&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>UTICA</h2>
+            </div>
+            <div id="investor8" class="investor-details">
+                <h2>UTICA</h2>
+                <p>UTICA (Union Tunisienne de l'Industrie, du Commerce et de l'Artisanat), fondée en 1947, représente les intérêts des entreprises et des entrepreneurs dans divers secteurs économiques en Tunisie. Elle joue un rôle crucial dans le développement de l'écosystème entrepreneurial en soutenant activement les startups et les petites et moyennes entreprises (PME). UTICA représente près de 150 000 entreprises privées et agit en tant que médiateur entre le gouvernement et le secteur privé, plaidant pour des politiques favorables à l'investissement et au développement des entreprises. Avec 24 unions régionales et 216 unions locales, UTICA soutient les entreprises à travers tout le pays, en particulier dans les régions éloignées des grands centres économiques. UTICA établit des partenariats avec des organisations internationales et nationales pour promouvoir le développement économique, comme le Dialogue National en Tunisie, qui a remporté le Prix Nobel de la Paix en 2015 pour sa contribution à la démocratie après la Révolution de Jasmin de 2011.
+
+UTICA organise également des programmes de formation pour améliorer les compétences des entrepreneurs et des employés, augmentant ainsi la compétitivité des entreprises tunisiennes. En tant qu'organisation représentant un large éventail de secteurs, UTICA encourage l'innovation et l'adoption de nouvelles technologies au sein des entreprises membres.
+
+Un exemple notable de partenariat est celui avec CEED Tunisie (Centre pour l'Entrepreneuriat et le Développement Exécutif). CEED Tunisie aide à stimuler la croissance économique et le développement en fournissant des programmes de formation et de mentorat aux entrepreneurs. Ce partenariat vise à atteindre jusqu'à 430 startups et entrepreneurs dans 14 gouvernorats tunisiens. Les startups bénéficient du programme Go-To-Market, un cours accéléré de six semaines couvrant le développement d'un plan marketing, un plan stratégique, des techniques de vente et la présentation de l'entreprise, ainsi que des sessions de pitch avec des investisseurs potentiels.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor9', event)">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.nYfsrZ4-6zmKXwjgg6nMNQHaEW&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>fondation tunisie</h2>
+            </div>
+            <div id="investor9" class="investor-details">
+                <h2>fondation tunisie</h2>
+                <p>Fondation Tunisie pour le Développement est une organisation non gouvernementale dédiée à la promotion du développement socio-économique en Tunisie. Elle vise à améliorer l'employabilité des jeunes, à réduire les inégalités régionales et à promouvoir l'innovation et la transformation digitale. Avec une dotation initiale de 20 millions d'euros, la fondation finance et soutient divers projets dans les domaines de la santé, de l'emploi et de la culture, en mettant un accent particulier sur l'égalité des genres et la correction des déséquilibres régionaux (Accueil).
+
+La fondation met en Suvre plusieurs programmes pour atteindre ses objectifs, tels que Elife, qui crée des pôles technologiques et entrepreneuriaux, formant et coachant 5000 apprenants par an dans les métiers du numérique, et Smart Tunisia, qui vise à faire de la Tunisie une destination de choix en tant que hub technologique pour l'Europe, l'Afrique et la région MEA, avec l'objectif de créer 50 000 emplois dans les TIC (Accueil) (Accueil).
+
+Un exemple notable de l'engagement de la fondation est The Dot, le premier hub d'innovation digitale en Tunisie. Lancé en janvier 2021, The Dot est le fruit d'un partenariat public-privé visant à fédérer l'écosystème entrepreneurial local, à soutenir l'innovation et la transformation digitale, et à renforcer les liens entre la Tunisie et l'Afrique. The Dot offre divers programmes de soutien aux startups, incluant l'incubation, l'hébergement, et des services de mentorat</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor10', event)">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.9PmR5U05LXI0rq-nNspogwHaEK&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>Tunisie Télécom</h2>
+            </div>
+            <div id="investor10" class="investor-details">
+                <h2>Tunisie Télécom</h2>
+                <p>Tunisie Telecom est une entreprise de télécommunications en Tunisie qui joue un rôle significatif en tant qu'investisseur et partenaire dans le soutien aux startups et à l'innovation. Tunisie Telecom s'engage activement à promouvoir l'écosystème entrepreneurial tunisien à travers divers investissements et collaborations stratégiques.
+
+Investissements et Soutien aux Startups
+Tunisie Telecom est impliquée dans plusieurs initiatives visant à encourager le développement des startups en Tunisie. L'entreprise investit dans des projets qui favorisent l'innovation technologique et la transformation digitale. Par exemple, Tunisie Telecom a été impliquée dans des initiatives pour installer des infrastructures 5G à The Dot, soutenant ainsi les startups technologiques et améliorant l'accès à des technologies de pointe.
+
+Un exemple notable de l'engagement de Tunisie Telecom est son partenariat avec CoStarT, un incubateur technologique situé au Technopole de Sfax. CoStarT vise à créer des startups dans les domaines de l'informatique, du numérique et de la valorisation de la recherche scientifique grâce à des programmes de soutien spécifiques et personnalisés. En collaboration avec CoStarT, Tunisie Telecom fournit des services de connectivité et des infrastructures technologiques, facilitant ainsi le développement des projets incubés et renforçant l'écosystème entrepreneurial local.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor14', event)">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.FoTvsqrlHV3W52kRo5yEyQHaFj&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>BIAT</h2>
+            </div>
+            <div id="investor14" class="investor-details">
+                <h2>BIAT</h2>
+                <p>AT (Banque Internationale Arabe de Tunisie) est une institution financière majeure en Tunisie, reconnue pour son engagement actif dans le soutien à l'écosystème entrepreneurial et aux startups. En tant qu'investisseur, BIAT joue un rôle crucial en offrant des ressources financières, des infrastructures et un soutien stratégique pour aider les startups tunisiennes à se développer et à réussir.
+
+Investissements et Soutien aux Startups
+BIAT a établi plusieurs initiatives et partenariats pour promouvoir l'innovation et le développement des startups en Tunisie. Parmi ses initiatives notables, BIAT a lancé son propre incubateur, B@Labs, qui soutient les entrepreneurs en phase de démarrage. B@Labs offre un programme complet d'incubation incluant des espaces de travail, du mentorat, des ateliers de formation et des opportunités de mise en réseau.
+
+Exemple de Partenariat : B@Labs
+L'incubateur B@Labs a été créé pour encourager l'innovation et aider les jeunes entreprises à surmonter les défis de leurs premières années. Depuis son lancement, B@Labs a soutenu de nombreuses startups tunisiennes, leur offrant non seulement un espace physique pour se développer, mais aussi un accès à un réseau de mentors expérimentés et à des ressources financières. Ce soutien permet aux startups de se concentrer sur l'innovation et la croissance, contribuant ainsi à l'économie tunisienne.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor15', event)">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.agwP_khnDhvsmEub_lz9twHaHa&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>ambassade de France</h2>
+            </div>
+            <div id="investor15" class="investor-details">
+                <h2>ambassade de France</h2>
+                <p>L'Ambassade de France en Tunisie joue un rôle actif dans le soutien et le financement de divers projets en Tunisie, en mettant l'accent sur l'innovation, l'environnement et l'éducation.
+
+Programme "Innov'i - EU4Innovation" :
+
+Ce programme, financé par l'Union européenne et mis en Suvre par Expertise France, vise à renforcer l'écosystème entrepreneurial tunisien. Il offre un soutien technique et financier aux startups, facilitant les partenariats avec des acteurs français et européens.
+Appel à projets pour la jeunesse et l'environnement :
+
+En partenariat avec l'Institut Français de Tunisie et le programme PISCCA (Projets Innovants des Sociétés Civiles et Coalitions d'Acteurs), l'ambassade a lancé un appel à projets destiné aux associations tunisiennes locales. Ce programme vise à financer des projets concrets et ambitieux dans le domaine de la protection de l'environnement, avec un financement moyen de 30 000 à 50 000 dinars par projet.</p>
+            </div>
+            
+            <div class="investor-card" onclick="showDetails('investor18', event)">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.mOUsDhLC8hLVmkIp-JKfQQHaEr&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>Ministère de la Culture</h2>
+            </div>
+            <div id="investor18" class="investor-details">
+                <h2>Ministère de la Culture</h2>
+                <p>Le Ministère de la Culture en Tunisie s'engage activement dans le soutien aux startups, aux SSO (Sociétés de Soutien aux Organisations), et à l'innovation à travers plusieurs initiatives clés :
+
+Partenariat avec Minassa :
+
+Le ministère collabore avec Minassa, un incubateur, pour soutenir l'innovation culturelle. Minassa aide les startups culturelles en leur offrant des ressources, du mentorat, et des opportunités de réseautage, favorisant ainsi un écosystème dynamique pour l'innovation culturelle en Tunisie.
+
+En collaboration avec l'Institut Français de Tunisie et le programme PISCCA, le ministère finance des projets menés par des jeunes, particulièrement ceux ayant un impact environnemental. Ce programme vise à soutenir des projets innovants dans divers domaines, incluant l'impact social et environnemental.
+Exemples de Soutien et Chiffres Clés :
+Minassa Incubateur : Minassa a incubé plusieurs startups culturelles, leur offrant un soutien en termes de financement et de mentorat.
+Appels à Projets : Le programme PISCCA a permis de financer des projets avec des montants allant de 30 000 à 50 000 dinars par projet, soutenant ainsi 24 projets répartis sur les 24 gouvernorats de Tunisie.</p>
+            </div>
+
+            <div class="investor-card" onclick="showDetails('investor19', event)">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.ldqVvfbkEIU0OJRBi1Dx_QAAAA&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>Enda Inter-Arabe</h2>
+            </div>
+            <div id="investor19" class="investor-details">
+                <h2>Enda Inter-Arabe</h2>
+                <p>Enda inter-arabe joue un rôle crucial dans le soutien aux startups en Tunisie, en particulier par le biais de son incubateur, le Startup Studio. Ce programme est conçu pour aider les startups en phase de démarrage, en leur offrant des ressources, du mentorat, et des opportunités de financement. En 2024, Startup Studio s'est concentré sur les startups agroalimentaires équitables, soutenant toute la chaîne de valeur, de la production à la commercialisation des produits finis. Les startups sélectionnées reçoivent un soutien intensif pendant 3 à 4 mois et peuvent obtenir un investissement en capital allant jusqu'à 350 000 TND (environ 120 000 USD) (Youth Business International).
+
+En plus de ses propres initiatives, Enda inter-arabe soutient également des incubateurs comme Wiki Startup, le premier incubateur privé en Tunisie créé en 2011. Wiki Startup a pour mission de soutenir les entrepreneurs, les investisseurs, et les structures publiques et privées dans le développement de leurs activités. L'incubateur offre divers services, incluant le mentorat, la formation, et l'accès à un réseau de partenaires et d'investisseurs (Startup Tunisia).</p>
+            </div>
+
+            <div class="investor-card" onclick="showDetails('investor21', event)">
+                <h2>express fm</h2>
+            </div>
+            <div id="investor21" class="investor-details">
+                <h2>express fm</h2>
+                <p>Details about express fm...</p>
+            </div>
+
+            <div class="investor-card" onclick="showDetails('investor22', event)">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.bG8O6C5Up-cgqhLHdcZ2aQHaFj&pid=Api&P=0&h=180" alt="Tunisie leasing" class="small">
+                <h2>smart capital</h2>
+            </div>
+            <div id="investor22" class="investor-details">
+                <h2>smart capital</h2>
+                <p>Smart Capital est une société de gestion de fonds d'investissement en Tunisie, spécialisée dans le capital-risque. Elle est responsable de la mise en Suvre de Startup Tunisia, une initiative nationale visant à transformer la Tunisie en un hub de startups.
+
+Startup Invest est un cadre dinvestissement construit autour du Fonds de Fonds ANAVA, avec une taille cible de 100 millions deuros, soutenant les startups à divers stades de développement, avec des investissements allant jusquà 15 millions deuros par startup (Smart Capital) (Smart Capital).
+
+Partenariat avec Foundup : Smart Capital est partenaire de Foundup, une initiative de soutien aux startups innovantes, leur offrant des ressources, du mentorat, et des opportunités de réseautage pour accéder aux marchés internationaux (Startup Tunisia) (Smart Capital).</p>
+            </div>
+
+            <div class="investor-card" onclick="showDetails('investor29', event)">
+                <h2>Tunisia JOBS</h2>
+            </div>
+            <div id="investor29" class="investor-details">
+                <h2>Tunisia JOBS</h2>
+                <p>Details about Tunisia JOBS...</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
